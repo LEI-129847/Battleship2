@@ -20,8 +20,8 @@ public class Messages {
 
     // Obtém a mensagem com parâmetros dinâmicos
     public static String getMessage(String key, Object... params) {
-        String pattern = bundle.getString(key);
-        return MessageFormat.format(pattern, params);
+        String p = bundle.getString(key);
+        return MessageFormat.format(p, params);
     }
 }
 

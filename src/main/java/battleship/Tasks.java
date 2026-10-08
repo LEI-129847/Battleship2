@@ -138,13 +138,13 @@ public class Tasks {
 		Fleet fleet = new Fleet();
 		int i = 0; // i represents the total of successfully created ships
 		while (i < Fleet.FLEET_SIZE) {
-			IShip s = readShip(in);
-			if (s != null) {
-				boolean success = fleet.addShip(s);
+			IShip ship = readShip(in);
+			if (ship != null) {
+				boolean success = fleet.addShip(ship);
 				if (success)
 					i++;
 				else
-					LOGGER.info("Falha na criacao de {} {} {}", s.getCategory(), s.getBearing(), s.getPosition());
+					LOGGER.info("Falha na criacao de {} {} {}", ship.getCategory(), ship.getBearing(), ship.getPosition());
 			} else {
 				LOGGER.info("Navio desconhecido!");
 			}
