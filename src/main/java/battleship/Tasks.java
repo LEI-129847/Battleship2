@@ -32,6 +32,12 @@ public class Tasks {
 	private static final String MAPA = "mapa";
 	private static final String STATUS = "estado";
 	private static final String SIMULA = "simula";
+	private static final String PDF = "pdf";
+
+	/**
+	 * Name of the PDF file with the moves of the game
+	 */
+	private static final String PDF_FILE = "jogadas.pdf";
 
 	/**
 	 * This task also tests the fighting element of a round of three shots
@@ -101,9 +107,15 @@ public class Tasks {
 					if (game != null)
 						game.printMyBoard(true, true);
 					break;
-                case AJUDA:
-                    menuHelp();
-                    break;
+				case PDF:
+					if (game != null)
+						exportMovesToPdf(game);
+					else
+						System.out.println("Ainda não há jogo! Use primeiro " + GERAFROTA + " ou " + LEFROTA + ".");
+					break;
+				case AJUDA:
+					menuHelp();
+					break;
 				default:
 					System.out.println("Que comando é esse??? Repete ...");
 			}
@@ -126,8 +138,26 @@ public class Tasks {
 		System.out.println("- " + RAJADA + ": Realiza uma rajada de disparos.");
 		System.out.println("- " + SIMULA + ": Simula um jogo completo.");
 		System.out.println("- " + TIROS + ": Lista os tiros válidos realizados (* = tiro em navio, o = tiro na água)");
+		System.out.println("- " + PDF + ": Exporta o registo das jogadas para o ficheiro " + PDF_FILE + ".");
 		System.out.println("- " + DESISTIR + ": Encerra o jogo.");
 		System.out.println("===============================================================");
+	}
+
+	/**
+	 * Exports the moves of the given game to a PDF file.
+	 *
+	 * @param game The game whose moves are to be exported
+	 */
+	private static void exportMovesToPdf(IGame game) {
+		assert game != null;
+
+		try {
+			PdfExporter.export(game, PDF_FILE);
+			System.out.println("PDF criado com sucesso: " + PDF_FILE);
+		} catch (java.io.IOException e) {
+			LOGGER.error("Erro ao criar o PDF das jogadas", e);
+			System.out.println("Não foi possível criar o PDF: " + e.getMessage());
+		}
 	}
 	/**
 	 * This operation allows the build up of a fleet, given user data
