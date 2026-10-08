@@ -16,11 +16,6 @@ public class Tasks {
 	private static final Logger LOGGER = LogManager.getLogger();
 
 	/**
-	 * The constant GOODBYE_MESSAGE.
-	 */
-	private static final String GOODBYE_MESSAGE = "Bons ventos!";
-
-	/**
 	 * Strings to be used by the user
 	 */
 	private static final String AJUDA = "ajuda";
@@ -101,15 +96,16 @@ public class Tasks {
 					if (game != null)
 						game.printMyBoard(true, true);
 					break;
-                case AJUDA:
-                    menuHelp();
-                    break;
+				case AJUDA:
+					menuHelp();
+					break;
 				default:
-					System.out.println("Que comando é esse??? Repete ...");
+					System.out.println(Messages.getMessage("msg.invalid_command"));
 			}
 			System.out.print("> ");
 			command = in.next();
 		}
+		System.out.println(Messages.getMessage("msg.goodbye"));
 		// Se existir um jogo em curso, termina-o para mostrar o tempo total
 		if (game != null)
 			game.over();
@@ -120,18 +116,19 @@ public class Tasks {
 	 * This function provides help information about the menu commands.
 	 */
 	public static void menuHelp() {
-		System.out.println("======================= AJUDA DO MENU =========================");
-		System.out.println("Digite um dos comandos abaixo para interagir com o jogo:");
-		System.out.println("- " + GERAFROTA + ": Gera uma frota aleatória de navios.");
-		System.out.println("- " + LEFROTA + ": Permite criar e carregar uma frota personalizada.");
-		System.out.println("- " + STATUS + ": Mostra o status atual da frota.)");
-		System.out.println("- " + MAPA + ": Exibe o mapa da frota.");
-		System.out.println("- " + RAJADA + ": Realiza uma rajada de disparos.");
-		System.out.println("- " + SIMULA + ": Simula um jogo completo.");
-		System.out.println("- " + TIROS + ": Lista os tiros válidos realizados (* = tiro em navio, o = tiro na água)");
-		System.out.println("- " + DESISTIR + ": Encerra o jogo.");
-		System.out.println("===============================================================");
+		System.out.println(Messages.getMessage("menu.header"));
+		System.out.println(Messages.getMessage("menu.instruction"));
+		System.out.println("- " + GERAFROTA + ": " + Messages.getMessage("cmd.gerafrota"));
+		System.out.println("- " + LEFROTA + ": " + Messages.getMessage("cmd.lefrota"));
+		System.out.println("- " + STATUS + ": " + Messages.getMessage("cmd.estado"));
+		System.out.println("- " + MAPA + ": " + Messages.getMessage("cmd.mapa"));
+		System.out.println("- " + RAJADA + ": " + Messages.getMessage("cmd.rajada"));
+		System.out.println("- " + SIMULA + ": " + Messages.getMessage("cmd.simula"));
+		System.out.println("- " + TIROS + ": " + Messages.getMessage("cmd.tiros"));
+		System.out.println("- " + DESISTIR + ": " + Messages.getMessage("cmd.desisto"));
+		System.out.println(Messages.getMessage("menu.footer"));
 	}
+
 	/**
 	 * This operation allows the build up of a fleet, given user data
 	 *
@@ -145,13 +142,13 @@ public class Tasks {
 		Fleet fleet = new Fleet();
 		int i = 0; // i represents the total of successfully created ships
 		while (i < Fleet.FLEET_SIZE) {
-			IShip s = readShip(in);
-			if (s != null) {
-				boolean success = fleet.addShip(s);
+			IShip ship = readShip(in);
+			if (ship != null) {
+				boolean success = fleet.addShip(ship);
 				if (success)
 					i++;
 				else
-					LOGGER.info("Falha na criacao de {} {} {}", s.getCategory(), s.getBearing(), s.getPosition());
+					LOGGER.info("Falha na criacao de {} {} {}", ship.getCategory(), ship.getBearing(), ship.getPosition());
 			} else {
 				LOGGER.info("Navio desconhecido!");
 			}
@@ -201,7 +198,7 @@ public class Tasks {
 	public static IPosition readClassicPosition(@NotNull Scanner in) {
 		// Verifica se ainda há tokens disponíveis
 		if (!in.hasNext()) {
-			throw new IllegalArgumentException("Nenhuma posição válida encontrada!");
+			throw new IllegalArgumentException(Messages.getMessage("err.no_valid_position"));
 		}
 
 		String part1 = in.next(); // Primeiro token
@@ -226,8 +223,7 @@ public class Tasks {
 			int row = Integer.parseInt(part2); // Extrair a linha
 			return new Position(column, row);
 		} else {
-			throw new IllegalArgumentException("Formato inválido. Use 'A3', 'A 3' ou similar.");
+			throw new IllegalArgumentException(Messages.getMessage("err.invalid_format"));
 		}
 	}
-
 }
