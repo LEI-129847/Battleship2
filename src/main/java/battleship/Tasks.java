@@ -110,6 +110,9 @@ public class Tasks {
 			System.out.print("> ");
 			command = in.next();
 		}
+		// Se existir um jogo em curso, termina-o para mostrar o tempo total
+		if (game != null)
+			game.over();
 		System.out.println(GOODBYE_MESSAGE);
 	}
 
