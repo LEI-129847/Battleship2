@@ -236,7 +236,6 @@ public class Tasks {
 
 	/**
 	 * This operation allows reading a position in the map
-	 *
 	 * @param in The scanner to read from
 	 * @return The classic position that has been read
 	 */
