@@ -51,7 +51,8 @@ public class PdfExporter {
         List<IMove> moves = game.getAlienMoves();
 
         Document document = new Document(PageSize.A4);
-        try (FileOutputStream out = new FileOutputStream(outputPath)) {
+        FileOutputStream out = new FileOutputStream(outputPath);
+        try {
             PdfWriter.getInstance(document, out);
             document.open();
 
@@ -94,9 +95,11 @@ public class PdfExporter {
         } catch (DocumentException e) {
             throw new IOException("Erro ao gerar o PDF: " + e.getMessage(), e);
         } finally {
+            // Primeiro fechar o documento (escreve o fim do PDF), só depois o ficheiro
             if (document.isOpen()) {
                 document.close();
             }
+            out.close();
         }
     }
 
