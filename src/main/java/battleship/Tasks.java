@@ -39,8 +39,7 @@ public class Tasks {
 	 * Name of the PDF file with the moves of the game
 	 */
 	private static final String PDF_FILE = "Jogadas.pdf";
-	private static final String SCOREBOARD = "scoreboard";
-
+	private static final String SCOREBOARD = "Scoreboard";
 
 	/**
 	 * This task also tests the fighting element of a round of three shots
