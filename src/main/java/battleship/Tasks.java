@@ -16,11 +16,6 @@ public class Tasks {
 	private static final Logger LOGGER = LogManager.getLogger();
 
 	/**
-	 * The constant GOODBYE_MESSAGE.
-	 */
-	private static final String GOODBYE_MESSAGE = "Bons ventos!";
-
-	/**
 	 * Strings to be used by the user
 	 */
 	private static final String AJUDA = "ajuda";
@@ -115,17 +110,16 @@ public class Tasks {
 						game.printMyBoard(true, true);
 					break;
 				case PDF:
-					if (game != null)
+					if (game != null) {
 						exportMovesToPdf(game);
-					else
+					} else {
 						System.out.println(Messages.getMessage("err.no_game"));
+					}
 					break;
-
 				case SCOREBOARD:
 					Scoreboard scoreboard = new Scoreboard();
 					scoreboard.showScores();
 					break;
-
 				case AJUDA:
 					menuHelp();
 					break;
@@ -159,6 +153,11 @@ public class Tasks {
 		System.out.println(Messages.getMessage("menu.footer"));
 	}
 
+	/**
+	 * Exports the moves of the given game to a PDF file.
+	 *
+	 * @param game The game whose moves are to be exported
+	 */
 	private static void exportMovesToPdf(IGame game) {
 		assert game != null;
 
@@ -171,6 +170,12 @@ public class Tasks {
 		}
 	}
 
+	/**
+	 * This operation allows the build up of a fleet, given user data
+	 *
+	 * @param in The scanner to read from
+	 * @return The fleet that has been built
+	 */
 	public static Fleet buildFleet(Scanner in) {
 		assert in != null;
 
@@ -192,6 +197,12 @@ public class Tasks {
 		return fleet;
 	}
 
+	/**
+	 * This operation reads data about a ship, build it and returns it
+	 *
+	 * @param in The scanner to read from
+	 * @return The created ship based on the data that has been read
+	 */
 	public static Ship readShip(Scanner in) {
 		assert in != null;
 
@@ -202,6 +213,12 @@ public class Tasks {
 		return Ship.buildShip(shipKind, bearing, pos);
 	}
 
+	/**
+	 * This operation allows reading a position in the map
+	 *
+	 * @param in The scanner to read from
+	 * @return The position that has been read
+	 */
 	public static Position readPosition(Scanner in) {
 		assert in != null;
 
@@ -210,6 +227,12 @@ public class Tasks {
 		return new Position(row, column);
 	}
 
+	/**
+	 * This operation allows reading a position in the map
+	 *
+	 * @param in The scanner to read from
+	 * @return The classic position that has been read
+	 */
 	public static IPosition readClassicPosition(@NotNull Scanner in) {
 		if (!in.hasNext()) {
 			throw new IllegalArgumentException(Messages.getMessage("err.no_valid_position"));
