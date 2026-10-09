@@ -121,9 +121,6 @@ public class Tasks {
 					else
 						System.out.println("Ainda não há jogo! Use primeiro " + GERAFROTA + " ou " + LEFROTA + ".");
 					break;
-				case AJUDA:
-					menuHelp();
-					break;
 
 				case SCOREBOARD:
 					Scoreboard scoreboard = new Scoreboard();
