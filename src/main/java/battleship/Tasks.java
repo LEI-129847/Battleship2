@@ -3,7 +3,6 @@ package battleship;
 
 import java.util.Scanner;
 
-import ch.qos.logback.core.net.SyslogOutputStream;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
@@ -20,7 +19,7 @@ public class Tasks {
 	/**
 	 * The constant GOODBYE_MESSAGE.
 	 */
-	private static final String GOODBYE_MESSAGE = "Bons ventos!";
+	private static final String GOODBYE_MESSAGE = "Bons Ventos!";
 
 	/**
 	 * Strings to be used by the user
@@ -41,6 +40,7 @@ public class Tasks {
 	 */
 	private static final String PDF_FILE = "Jogadas.pdf";
 	private static final String SCOREBOARD = "scoreboard";
+	private static final String SCOREBOARD = "Scoreboard";
 
 	/**
 	 * This task also tests the fighting element of a round of three shots
@@ -49,7 +49,7 @@ public class Tasks {
 
 		Scanner in = new Scanner(System.in);
 		System.out.print("Escolha o idioma / Choose language (pt/en)");
-		String lang  = in.next();
+		String lang = in.next();
 		Messages.setLanguage(lang);
 
 		IFleet myFleet = null;
@@ -153,7 +153,6 @@ public class Tasks {
 		System.out.println("- " + RAJADA + ": Realiza uma rajada de disparos.");
 		System.out.println("- " + SIMULA + ": Simula um jogo completo.");
 		System.out.println("- " + TIROS + ": Lista os tiros válidos realizados (* = tiro em navio, o = tiro na água)");
-		System.out.println("- " + PDF + ": Exporta o registo das jogadas para o ficheiro " + PDF_FILE + ".");
 		System.out.println("- " + SCOREBOARD + ": Mostra os resultados dos jogos anteriores.");
 		System.out.println("- " + DESISTIR + ": Encerra o jogo.");
 		System.out.println("===============================================================");
