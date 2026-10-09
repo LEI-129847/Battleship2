@@ -2,6 +2,7 @@ package battleship;
 
 import java.util.Scanner;
 
+import ch.qos.logback.core.net.SyslogOutputStream;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
@@ -39,12 +40,16 @@ public class Tasks {
 	 */
 	public static void menu() {
 
+		Scanner in = new Scanner(System.in);
+		System.out.print("Escolha o idioma / Choose language (pt/en)");
+		String lang  = in.next();
+		Messages.setLanguage(lang);
+
 		IFleet myFleet = null;
 		IGame game = null;
 		menuHelp();
 
 		System.out.print("> ");
-		Scanner in = new Scanner(System.in);
 		String command = in.next();
 		while (!command.equals(DESISTIR)) {
 
