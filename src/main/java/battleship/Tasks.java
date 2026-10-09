@@ -36,8 +36,8 @@ public class Tasks {
 
 		Scanner in = new Scanner(System.in);
 		System.out.print("Escolha o idioma / Choose language (pt/en)");
-		String lan  = in.next();
-		Messages.setLanguage(lan);
+		String lang = in.next();
+		Messages.setLanguage(lang);
 
 		IFleet myFleet = null;
 		IGame game = null;
