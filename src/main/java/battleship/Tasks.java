@@ -111,6 +111,10 @@ public class Tasks {
 			command = in.next();
 		}
 		System.out.println(Messages.getMessage("msg.goodbye"));
+		// Se existir um jogo em curso, termina-o para mostrar o tempo total
+		if (game != null)
+			game.over();
+		System.out.println(GOODBYE_MESSAGE);
 	}
 
 	/**
