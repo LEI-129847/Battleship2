@@ -28,6 +28,7 @@ public class Tasks {
 	private static final String MAPA = "mapa";
 	private static final String STATUS = "estado";
 	private static final String SIMULA = "simula";
+	private static final String SCOREBOARD = "Scoreboard";
 
 	/**
 	 * This task also tests the fighting element of a round of three shots
