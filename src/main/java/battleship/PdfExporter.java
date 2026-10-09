@@ -39,7 +39,6 @@ public class PdfExporter {
 
     /**
      * Generates a PDF file with all the moves registered in the game.
-     *
      * @param game       the game whose moves are to be printed
      * @param outputPath the path of the PDF file to create (e.g. "jogadas.pdf")
      * @throws IOException if the file cannot be written

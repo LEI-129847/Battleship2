@@ -252,7 +252,7 @@ public class Tasks {
 		if (in.hasNextInt()) {
 			part2 = in.next(); // Segundo token, se disponível
 		}
- 
+
 		String input = (part2 != null) ? part1 + part2 : part1;
 
 		// Normalizar o input para tratar letras maiúsculas e minúsculas
