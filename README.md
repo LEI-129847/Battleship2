@@ -1,5 +1,6 @@
 # ⚓ Battleship 2.0
 
+*A conta Romeiro151 é o LEI-129838 e a conta diogotomasteixeira-design é o LEI-129840*
 ![Build Status](https://img.shields.io/badge/build-passing-brightgreen)
 ![Java Version](https://img.shields.io/badge/Java-17%2B-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
