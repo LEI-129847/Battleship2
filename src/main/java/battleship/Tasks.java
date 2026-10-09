@@ -2,6 +2,7 @@ package battleship;
 
 import java.util.Scanner;
 
+import ch.qos.logback.core.net.SyslogOutputStream;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
@@ -38,18 +39,23 @@ public class Tasks {
 	 * Name of the PDF file with the moves of the game
 	 */
 	private static final String PDF_FILE = "jogadas.pdf";
+	private static final String SCOREBOARD = "scoreboard";
 
 	/**
 	 * This task also tests the fighting element of a round of three shots
 	 */
 	public static void menu() {
 
+		Scanner in = new Scanner(System.in);
+		System.out.print("Escolha o idioma / Choose language (pt/en)");
+		String lang  = in.next();
+		Messages.setLanguage(lang);
+
 		IFleet myFleet = null;
 		IGame game = null;
 		menuHelp();
 
 		System.out.print("> ");
-		Scanner in = new Scanner(System.in);
 		String command = in.next();
 		while (!command.equals(DESISTIR)) {
 
@@ -80,6 +86,7 @@ public class Tasks {
 
 						if (game.getRemainingShips() == 0) {
 							game.over();
+							saveGameScore(game);
 							System.exit(0);
 						}
 					}
@@ -99,6 +106,7 @@ public class Tasks {
 
 						if (game.getRemainingShips() == 0) {
 							game.over();
+							saveGameScore(game);
 							System.exit(0);
 						}
 					}
@@ -116,6 +124,15 @@ public class Tasks {
 				case AJUDA:
 					menuHelp();
 					break;
+
+				case SCOREBOARD:
+					Scoreboard scoreboard = new Scoreboard();
+					scoreboard.showScores();
+					break;
+
+                case AJUDA:
+                    menuHelp();
+                    break;
 				default:
 					System.out.println("Que comando é esse??? Repete ...");
 			}
@@ -139,6 +156,7 @@ public class Tasks {
 		System.out.println("- " + SIMULA + ": Simula um jogo completo.");
 		System.out.println("- " + TIROS + ": Lista os tiros válidos realizados (* = tiro em navio, o = tiro na água)");
 		System.out.println("- " + PDF + ": Exporta o registo das jogadas para o ficheiro " + PDF_FILE + ".");
+		System.out.println("- " + SCOREBOARD + ": Mostra os resultados dos jogos anteriores.");
 		System.out.println("- " + DESISTIR + ": Encerra o jogo.");
 		System.out.println("===============================================================");
 	}
@@ -256,5 +274,13 @@ public class Tasks {
 			throw new IllegalArgumentException("Formato inválido. Use 'A3', 'A 3' ou similar.");
 		}
 	}
+
+	private static void saveGameScore(IGame game) {
+		Scoreboard scoreboard = new Scoreboard();
+		int shots = game.getAlienMoves().size() * Game.NUMBER_SHOTS;
+		int hits = game.getHits();
+		int sinks = game.getSunkShips();
+		scoreboard.saveScore(shots, hits, sinks);
+		System.out.println("Resultado guardado no Scoreboard!"); }
 
 }
