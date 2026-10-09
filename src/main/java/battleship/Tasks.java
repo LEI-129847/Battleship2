@@ -39,6 +39,11 @@ public class Tasks {
 	 */
 	public static void menu() {
 
+		Scanner in = new Scanner(System.in);
+		System.out.print("Escolha o idioma / Choose language (pt/en)");
+		String lan  = in.next();
+		Messages.setLanguage(lan);
+
 		IFleet myFleet = null;
 		IGame game = null;
 		menuHelp();
