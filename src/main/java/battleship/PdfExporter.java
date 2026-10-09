@@ -108,7 +108,7 @@ public class PdfExporter {
     private static String shotsToString(IMove move) {
         return move.getShots().stream()
                 .map(Object::toString)
-                .collect(Collectors.joining(", "));
+                .collect(Collectors.joining(" , "));
     }
 
     /**
@@ -119,7 +119,7 @@ public class PdfExporter {
         int water = 0;
         int repeated = 0;
         int outside = 0;
-        Map<String, Integer> hits = new LinkedHashMap<>();
+        Map<String, Integer> hit = new LinkedHashMap<>();
         Map<String, Integer> sunk = new LinkedHashMap<>();
 
         for (IGame.ShotResult r : move.getShotResults()) {
@@ -131,7 +131,7 @@ public class PdfExporter {
                 water++;
             } else {
                 String category = r.ship().getCategory();
-                hits.merge(category, 1, Integer::sum);
+                hit.merge(category, 1, Integer::sum);
                 if (r.sunk())
                     sunk.merge(category, 1, Integer::sum);
             }
@@ -139,7 +139,7 @@ public class PdfExporter {
 
         List<String> parts = new ArrayList<>();
         sunk.forEach((category, n) -> parts.add(n + " " + category + (n > 1 ? "s" : "") + " ao fundo"));
-        hits.forEach((category, n) -> {
+        hit.forEach((category, n) -> {
             if (!sunk.containsKey(category))
                 parts.add(n + " tiro" + (n > 1 ? "s" : "") + " num(a) " + category);
         });
@@ -154,10 +154,10 @@ public class PdfExporter {
     }
 
     private static void addHeaderCell(PdfPTable table, String text) {
-        PdfPCell cell = new PdfPCell(new Phrase(text, HEADER_FONT));
-        cell.setBackgroundColor(new Color(0x1F, 0x4E, 0x79));
-        cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-        cell.setPadding(6);
-        table.addCell(cell);
+        PdfPCell Cell = new PdfPCell(new Phrase(text, HEADER_FONT));
+        Cell.setBackgroundColor(new Color(0x1F, 0x4E, 0x79));
+        Cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+        Cell.setPadding(6);
+        table.addCell(Cell);
     }
 }

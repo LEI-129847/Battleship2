@@ -1,3 +1,4 @@
+
 package battleship;
 
 import java.util.Scanner;
@@ -38,7 +39,7 @@ public class Tasks {
 	/**
 	 * Name of the PDF file with the moves of the game
 	 */
-	private static final String PDF_FILE = "jogadas.pdf";
+	private static final String PDF_FILE = "Jogadas.pdf";
 	private static final String SCOREBOARD = "scoreboard";
 
 	/**
@@ -119,7 +120,7 @@ public class Tasks {
 					if (game != null)
 						exportMovesToPdf(game);
 					else
-						System.out.println("Ainda não há jogo! Use primeiro " + GERAFROTA + " ou " + LEFROTA + ".");
+						System.out.println("Ainda não há jogo! Use primeiro " + GERAFROTA + " ou" + " " + LEFROTA + ".");
 					break;
 
 				case SCOREBOARD:
@@ -127,9 +128,9 @@ public class Tasks {
 					scoreboard.showScores();
 					break;
 
-                case AJUDA:
-                    menuHelp();
-                    break;
+				case AJUDA:
+					menuHelp();
+					break;
 				default:
 					System.out.println("Que comando é esse??? Repete ...");
 			}
@@ -168,9 +169,9 @@ public class Tasks {
 
 		try {
 			PdfExporter.export(game, PDF_FILE);
-			System.out.println("PDF criado com sucesso: " + PDF_FILE);
+			System.out.println("PDF foi criado com sucesso: " + PDF_FILE);
 		} catch (java.io.IOException e) {
-			LOGGER.error("Erro ao criar o PDF das jogadas", e);
+			LOGGER.error("Erro ao criar o PDF das jogadas: ", e);
 			System.out.println("Não foi possível criar o PDF: " + e.getMessage());
 		}
 	}
