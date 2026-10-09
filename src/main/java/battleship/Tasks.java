@@ -39,7 +39,6 @@ public class Tasks {
 	 * Name of the PDF file with the moves of the game
 	 */
 	private static final String PDF_FILE = "Jogadas.pdf";
-	private static final String SCOREBOARD = "scoreboard";
 	private static final String SCOREBOARD = "Scoreboard";
 
 	/**
@@ -157,6 +156,7 @@ public class Tasks {
 		System.out.println("- " + SIMULA + ": " + Messages.getMessage("cmd.simula"));
 		System.out.println("- " + TIROS + ": " + Messages.getMessage("cmd.tiros"));
 		System.out.println("- " + SCOREBOARD + ": " + Messages.getMessage("cmd.scoreboard"));
+		System.out.println("- " + PDF + ": " + Messages.getMessage("cmd.pdf"));
 		System.out.println("- " + DESISTIR + ": " + Messages.getMessage("cmd.desisto"));
 		System.out.println(Messages.getMessage("menu.footer"));
 	}
