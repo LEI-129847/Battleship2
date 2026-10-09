@@ -39,6 +39,7 @@ public class Tasks {
 	 * Name of the PDF file with the moves of the game
 	 */
 	private static final String PDF_FILE = "jogadas.pdf";
+	private static final String SCOREBOARD = "scoreboard";
 
 	/**
 	 * This task also tests the fighting element of a round of three shots
@@ -119,6 +120,7 @@ public class Tasks {
 						exportMovesToPdf(game);
 					else
 						System.out.println(Messages.getMessage("err.no_game"));
+						System.out.println("Ainda não há jogo! Use primeiro " + GERAFROTA + " ou " + LEFROTA + ".");
 					break;
 
 				case SCOREBOARD:
@@ -129,8 +131,12 @@ public class Tasks {
 				case AJUDA:
 					menuHelp();
 					break;
+
+                case AJUDA:
+                    menuHelp();
+                    break;
 				default:
-					System.out.println(Messages.getMessage("msg.invalid_command"));
+					System.out.println("Que comando é esse??? Repete ...");
 			}
 			System.out.print("> ");
 			command = in.next();
@@ -138,6 +144,7 @@ public class Tasks {
 		System.out.println(Messages.getMessage("msg.goodbye"));
 		if (game != null)
 			game.over();
+		System.out.println(GOODBYE_MESSAGE);
 	}
 
 	/**
@@ -161,6 +168,44 @@ public class Tasks {
 
 	private static void exportMovesToPdf(IGame game) {
 		assert game != null;
+		System.out.println("======================= AJUDA DO MENU =========================");
+		System.out.println("Digite um dos comandos abaixo para interagir com o jogo:");
+		System.out.println("- " + GERAFROTA + ": Gera uma frota aleatória de navios.");
+		System.out.println("- " + LEFROTA + ": Permite criar e carregar uma frota personalizada.");
+		System.out.println("- " + STATUS + ": Mostra o status atual da frota.)");
+		System.out.println("- " + MAPA + ": Exibe o mapa da frota.");
+		System.out.println("- " + RAJADA + ": Realiza uma rajada de disparos.");
+		System.out.println("- " + SIMULA + ": Simula um jogo completo.");
+		System.out.println("- " + TIROS + ": Lista os tiros válidos realizados (* = tiro em navio, o = tiro na água)");
+		System.out.println("- " + PDF + ": Exporta o registo das jogadas para o ficheiro " + PDF_FILE + ".");
+		System.out.println("- " + SCOREBOARD + ": Mostra os resultados dos jogos anteriores.");
+		System.out.println("- " + DESISTIR + ": Encerra o jogo.");
+		System.out.println("===============================================================");
+	}
+
+	/**
+	 * Exports the moves of the given game to a PDF file.
+	 *
+	 * @param game The game whose moves are to be exported
+	 */
+	private static void exportMovesToPdf(IGame game) {
+		assert game != null;
+
+		try {
+			PdfExporter.export(game, PDF_FILE);
+			System.out.println("PDF criado com sucesso: " + PDF_FILE);
+		} catch (java.io.IOException e) {
+			LOGGER.error("Erro ao criar o PDF das jogadas", e);
+			System.out.println("Não foi possível criar o PDF: " + e.getMessage());
+		}
+	}
+	/**
+	 * This operation allows the build up of a fleet, given user data
+	 *
+	 * @param in The scanner to read from
+	 * @return The fleet that has been built
+	 */
+	public static Fleet buildFleet(Scanner in) {
 
 		try {
 			PdfExporter.export(game, PDF_FILE);
@@ -212,7 +257,7 @@ public class Tasks {
 
 	public static IPosition readClassicPosition(@NotNull Scanner in) {
 		if (!in.hasNext()) {
-			throw new IllegalArgumentException(Messages.getMessage("err.no_valid_position"));
+			throw new IllegalArgumentException("Nenhuma posição válida encontrada!");
 		}
 
 		String part1 = in.next();
@@ -234,7 +279,7 @@ public class Tasks {
 			int row = Integer.parseInt(part2);
 			return new Position(column, row);
 		} else {
-			throw new IllegalArgumentException(Messages.getMessage("err.invalid_format"));
+			throw new IllegalArgumentException("Formato inválido. Use 'A3', 'A 3' ou similar.");
 		}
 	}
 
@@ -246,4 +291,6 @@ public class Tasks {
 		scoreboard.saveScore(shots, hits, sinks);
 		System.out.println(Messages.getMessage("msg.score_saved"));
 	}
+		System.out.println("Resultado guardado no Scoreboard!"); }
+
 }
