@@ -18,7 +18,7 @@ public class Tasks {
 	/**
 	 * The constant GOODBYE_MESSAGE.
 	 */
-	private static final String GOODBYE_MESSAGE = "Bons ventos!";
+	private static final String GOODBYE_MESSAGE = "Bons Ventos!";
 
 	/**
 	 * Strings to be used by the user
