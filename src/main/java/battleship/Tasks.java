@@ -221,8 +221,8 @@ public class Tasks {
 		// Verificar os dois formatos possíveis: compactos e com espaço
 		if (input.matches("[A-Z]\\d+")) {
 			char column = input.charAt(0); // Extrair a coluna
-			int row = Integer.parseInt(input.substring(1)); // Extrair a linha
-			return new Position(column, row);
+			int r = Integer.parseInt(input.substring(1)); // Extrair a linha
+			return new Position(column, r);
 		} else if (part2 != null && part1.matches("[A-Z]") && part2.matches("\\d+")) {
 			char column = part1.charAt(0); // Extrair a coluna
 			int row = Integer.parseInt(part2); // Extrair a linha
