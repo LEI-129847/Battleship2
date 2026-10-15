@@ -69,8 +69,9 @@ public class Move implements IMove {
 		int repeatedShots = 0;
 		int missedShots = 0;
 
-		Map<String, Integer> sunkBoatsCount = new HashMap<>(); // Rastrear quantos navios de cada tipo afundaram
-		Map<String, Integer> hitsPerBoat = new HashMap<>();
+		// LinkedHashMap mantém a ordem de inserção, para o JSON sair sempre pela mesma ordem
+		Map<String, Integer> sunkBoatsCount = new LinkedHashMap<>(); // Rastrear quantos navios de cada tipo afundaram
+		Map<String, Integer> hitsPerBoat = new LinkedHashMap<>();    // Acertos que NÃO afundaram o navio
 
 		// Processar cada resultado de tiro
 		for (IGame.ShotResult result : this.shotResults) {
@@ -86,11 +87,12 @@ public class Move implements IMove {
 				validShots++;
 				if (result.ship() == null)
 					missedShots++; // Tiro na água
-				else{
+				else {
 					String boatName = result.ship().getCategory();
-					hitsPerBoat.put(boatName, hitsPerBoat.getOrDefault(boatName, 0) + 1);
 					if (result.sunk())
-						sunkBoatsCount.put(boatName, sunkBoatsCount.getOrDefault(boatName, 0) + 1); // Contar barcos do mesmo tipo afundados
+						sunkBoatsCount.put(boatName, sunkBoatsCount.getOrDefault(boatName, 0) + 1); // O tiro que afunda conta só em sunkBoats
+					else
+						hitsPerBoat.put(boatName, hitsPerBoat.getOrDefault(boatName, 0) + 1);
 				}
 			}
 		}
@@ -122,9 +124,7 @@ public class Move implements IMove {
 					for (Map.Entry<String, Integer> entry : hitsPerBoat.entrySet()) {
 						String boatName = entry.getKey();
 						int hits = entry.getValue();
-						if (!sunkBoatsCount.containsKey(boatName)) {
-							output.append(hits).append(" tiro").append(hits > 1 ? "s" : "").append(" num(a) ").append(boatName).append(" + ");
-						}
+						output.append(hits).append(" tiro").append(hits > 1 ? "s" : "").append(" num(a) ").append(boatName).append(" + ");
 					}
 				}
 
@@ -154,34 +154,32 @@ public class Move implements IMove {
 			System.out.println("Jogada nº" + this.number + " -> " + output);
 		}
 
-		// Criar o mapa para o JSON
-		Map<String, Object> response = new HashMap<>();
-		response.put("validShots", validShots);
-		response.put("outsideShots", outsideShots);
-		response.put("repeatedShots", repeatedShots);
-		response.put("missedShots", missedShots);
-
 		// Criar a lista de barcos afundados
 		List<Map<String, Object>> sunkBoats = new ArrayList<>();
 		for (Map.Entry<String, Integer> entry : sunkBoatsCount.entrySet()) {
-			Map<String, Object> boat = new HashMap<>();
-			boat.put("type", entry.getKey());
+			Map<String, Object> boat = new LinkedHashMap<>();
 			boat.put("count", entry.getValue());
+			boat.put("type", entry.getKey());
 			sunkBoats.add(boat);
 		}
-		response.put("sunkBoats", sunkBoats);
 
 		// Criar a lista de acertos em barcos que não foram afundados
 		List<Map<String, Object>> boatHits = new ArrayList<>();
 		for (Map.Entry<String, Integer> entry : hitsPerBoat.entrySet()) {
-			if (!sunkBoatsCount.containsKey(entry.getKey())) {
-				Map<String, Object> boat = new HashMap<>();
-				boat.put("type", entry.getKey());
-				boat.put("hits", entry.getValue());
-				boatHits.add(boat);
-			}
+			Map<String, Object> boat = new LinkedHashMap<>();
+			boat.put("hits", entry.getValue());
+			boat.put("type", entry.getKey());
+			boatHits.add(boat);
 		}
+
+		// Criar o mapa para o JSON, pela mesma ordem do protocolo dado ao LLM
+		Map<String, Object> response = new LinkedHashMap<>();
+		response.put("validShots", validShots);
+		response.put("sunkBoats", sunkBoats);
+		response.put("repeatedShots", repeatedShots);
+		response.put("outsideShots", outsideShots);
 		response.put("hitsOnBoats", boatHits);
+		response.put("missedShots", missedShots);
 
 		// Serializar o JSON utilizando Jackson
 		String jsonString;
