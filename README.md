@@ -1,5 +1,5 @@
 # ⚓ Battleship 2.0
-Link do vídeo da demonstração no Youtube: https://www.youtube.com/watch?v=DzOwE2tITCY
+
 *A conta Romeiro151 é o LEI-129838 e a conta diogotomasteixeira-design é o LEI-129840*
 ![Build Status](https://img.shields.io/badge/build-passing-brightgreen)
 ![Java Version](https://img.shields.io/badge/Java-17%2B-blue)
@@ -7,6 +7,9 @@ Link do vídeo da demonstração no Youtube: https://www.youtube.com/watch?v=DzO
 
 > A modern take on the classic naval warfare game, designed for the XVII century setting with updated software engineering patterns.
 
+---
+# 📷 Youtube
+Link do vídeo da demonstração no Youtube: https://www.youtube.com/watch?v=DzOwE2tITCY
 ---
 
 ## 📖 Table of Contents
@@ -149,3 +152,5 @@ Distributed under the MIT License. See `LICENSE` for more information.
 ---
 **Maintained by:** [@britoeabreu](https://github.com/britoeabreu)  
 *Created for the Software Engineering students at ISCTE-IUL.*
+
+
