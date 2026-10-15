@@ -1,8 +1,8 @@
-
 package battleship;
 
 import java.util.Scanner;
 
+import org.apache.commons.lang3.time.StopWatch;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
@@ -35,6 +35,7 @@ public class Tasks {
 	private static final String SIMULA = "simula";
 	private static final String PDF = "pdf";
 
+
 	/**
 	 * Name of the PDF file with the moves of the game
 	 */
@@ -55,7 +56,11 @@ public class Tasks {
 		IGame game = null;
 		menuHelp();
 
+		// Instante em que o prompt é mostrado (usado para medir o tempo entre comandos)
+		long promptTime;
+
 		System.out.print("> ");
+		promptTime = System.currentTimeMillis();
 		String command = in.next();
 		while (!command.equals(DESISTIR)) {
 
@@ -81,6 +86,11 @@ public class Tasks {
 				case RAJADA:
 					if (game != null) {
 						game.readEnemyFire(in);
+
+						// Tempo entre o aparecimento do prompt e o fim da rajada
+						long elapsed = System.currentTimeMillis() - promptTime;
+						System.out.println("Tempo da jogada: " + formatDuration(elapsed));
+
 						myFleet.printStatus();
 						game.printMyBoard(true, false);
 
@@ -93,7 +103,8 @@ public class Tasks {
 					break;
 				case SIMULA:
 					if (game != null) {
-						while (game.getRemainingShips() > 0){
+						StopWatch simWatch = StopWatch.createStarted();
+						while (game.getRemainingShips() > 0) {
 							game.randomEnemyFire();
 							myFleet.printStatus();
 							game.printMyBoard(true, false);
@@ -103,12 +114,12 @@ public class Tasks {
 								Thread.currentThread().interrupt(); // Best practice: restore interrupt status
 							}
 						}
+						simWatch.stop();
+						System.out.println("Duração da simulação: " + formatDuration(simWatch.getTime()));
 
-						if (game.getRemainingShips() == 0) {
-							game.over();
-							saveGameScore(game);
-							System.exit(0);
-						}
+						game.over();
+						saveGameScore(game);
+						System.exit(0);
 					}
 					break;
 				case TIROS:
@@ -134,12 +145,27 @@ public class Tasks {
 					System.out.println("Que comando é esse??? Repete ...");
 			}
 			System.out.print("> ");
+			promptTime = System.currentTimeMillis();
 			command = in.next();
 		}
 		System.out.println(GOODBYE_MESSAGE);
 		if(game != null){
 			game.over();
 		}
+	}
+
+	/**
+	 * Formats a duration in milliseconds as "X min Y.Z s".
+	 *
+	 * @param millis the duration in milliseconds
+	 * @return the formatted duration
+	 */
+	private static String formatDuration(long millis) {
+		long totalSeconds = millis / 1000;
+		long minutes = totalSeconds / 60;
+		long seconds = totalSeconds % 60;
+		long tenths = (millis % 1000) / 100;
+		return minutes + " min " + seconds + "." + tenths + " s";
 	}
 
 	/**

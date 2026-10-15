@@ -214,6 +214,20 @@ public class Game implements IGame
 		return alienMoves;
 	}
 
+	private long lastRoundMillis;
+
+	public long getLastRoundMillis() {
+		return lastRoundMillis;
+	}
+
+	public static String formatDuration(long millis) {
+		long totalSeconds = millis / 1000;
+		long minutes = totalSeconds / 60;
+		long seconds = totalSeconds % 60;
+		long tenths = (millis % 1000) / 100;
+		return minutes + " min " + seconds + "." + tenths + " s";
+	}
+
 	/**
 	 * Simulates a random firing action by the enemy, generating a set of unique shot coordinates
 	 * and serializing them into a JSON string. The method ensures that the random shots are valid
