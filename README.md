@@ -8,6 +8,9 @@
 > A modern take on the classic naval warfare game, designed for the XVII century setting with updated software engineering patterns.
 
 ---
+## 📷 Youtube
+Link do vídeo da demonstração no Youtube: https://www.youtube.com/watch?v=DzOwE2tITCY
+---
 
 ## 📖 Table of Contents
 - [Project Overview](#-project-overview)
@@ -149,3 +152,5 @@ Distributed under the MIT License. See `LICENSE` for more information.
 ---
 **Maintained by:** [@britoeabreu](https://github.com/britoeabreu)  
 *Created for the Software Engineering students at ISCTE-IUL.*
+
+

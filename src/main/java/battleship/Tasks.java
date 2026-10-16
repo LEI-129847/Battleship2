@@ -2,6 +2,7 @@ package battleship;
 
 import java.util.Scanner;
 
+import org.apache.commons.lang3.time.StopWatch;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
@@ -16,6 +17,11 @@ public class Tasks {
 	private static final Logger LOGGER = LogManager.getLogger();
 
 	/**
+	 * The constant GOODBYE_MESSAGE.
+	 */
+	private static final String GOODBYE_MESSAGE = "Bons Ventos!";
+
+	/**
 	 * Strings to be used by the user
 	 */
 	private static final String AJUDA = "ajuda";
@@ -28,12 +34,13 @@ public class Tasks {
 	private static final String STATUS = "estado";
 	private static final String SIMULA = "simula";
 	private static final String PDF = "pdf";
-	private static final String SCOREBOARD = "scoreboard";
+
 
 	/**
 	 * Name of the PDF file with the moves of the game
 	 */
-	private static final String PDF_FILE = "jogadas.pdf";
+	private static final String PDF_FILE = "Jogadas.pdf";
+	private static final String SCOREBOARD = "Scoreboard";
 
 	/**
 	 * This task also tests the fighting element of a round of three shots
@@ -41,15 +48,19 @@ public class Tasks {
 	public static void menu() {
 
 		Scanner in = new Scanner(System.in);
-		System.out.print("Escolha o idioma / Choose language (pt/en): ");
-		String lang  = in.next();
+		System.out.print("Escolha o idioma / Choose language (pt/en)");
+		String lang = in.next();
 		Messages.setLanguage(lang);
 
 		IFleet myFleet = null;
 		IGame game = null;
 		menuHelp();
 
+		// Instante em que o prompt é mostrado (usado para medir o tempo entre comandos)
+		long promptTime;
+
 		System.out.print("> ");
+		promptTime = System.currentTimeMillis();
 		String command = in.next();
 		while (!command.equals(DESISTIR)) {
 
@@ -75,6 +86,11 @@ public class Tasks {
 				case RAJADA:
 					if (game != null) {
 						game.readEnemyFire(in);
+
+						// Tempo entre o aparecimento do prompt e o fim da rajada
+						long elapsed = System.currentTimeMillis() - promptTime;
+						System.out.println("Tempo da jogada: " + formatDuration(elapsed));
+
 						myFleet.printStatus();
 						game.printMyBoard(true, false);
 
@@ -87,22 +103,23 @@ public class Tasks {
 					break;
 				case SIMULA:
 					if (game != null) {
-						while (game.getRemainingShips() > 0){
+						StopWatch simWatch = StopWatch.createStarted();
+						while (game.getRemainingShips() > 0) {
 							game.randomEnemyFire();
 							myFleet.printStatus();
 							game.printMyBoard(true, false);
 							try {
 								Thread.sleep(3000);
 							} catch (InterruptedException e) {
-								Thread.currentThread().interrupt();
+								Thread.currentThread().interrupt(); // Best practice: restore interrupt status
 							}
 						}
+						simWatch.stop();
+						System.out.println("Duração da simulação: " + formatDuration(simWatch.getTime()));
 
-						if (game.getRemainingShips() == 0) {
-							game.over();
-							saveGameScore(game);
-							System.exit(0);
-						}
+						game.over();
+						saveGameScore(game);
+						System.exit(0);
 					}
 					break;
 				case TIROS:
@@ -110,28 +127,45 @@ public class Tasks {
 						game.printMyBoard(true, true);
 					break;
 				case PDF:
-					if (game != null) {
+					if (game != null)
 						exportMovesToPdf(game);
-					} else {
-						System.out.println(Messages.getMessage("err.no_game"));
-					}
+					else
+						System.out.println("Ainda não há jogo! Use primeiro " + GERAFROTA + " ou" + " " + LEFROTA + ".");
 					break;
+
 				case SCOREBOARD:
 					Scoreboard scoreboard = new Scoreboard();
 					scoreboard.showScores();
 					break;
+
 				case AJUDA:
 					menuHelp();
 					break;
 				default:
-					System.out.println(Messages.getMessage("msg.invalid_command"));
+					System.out.println("Que comando é esse??? Repete ...");
 			}
 			System.out.print("> ");
+			promptTime = System.currentTimeMillis();
 			command = in.next();
 		}
-		System.out.println(Messages.getMessage("msg.goodbye"));
-		if (game != null)
+		System.out.println(GOODBYE_MESSAGE);
+		if(game != null){
 			game.over();
+		}
+	}
+
+	/**
+	 * Formats a duration in milliseconds as "X min Y.Z s".
+	 *
+	 * @param millis the duration in milliseconds
+	 * @return the formatted duration
+	 */
+	private static String formatDuration(long millis) {
+		long totalSeconds = millis / 1000;
+		long minutes = totalSeconds / 60;
+		long seconds = totalSeconds % 60;
+		long tenths = (millis % 1000) / 100;
+		return minutes + " min " + seconds + "." + tenths + " s";
 	}
 
 	/**
@@ -147,8 +181,8 @@ public class Tasks {
 		System.out.println("- " + RAJADA + ": " + Messages.getMessage("cmd.rajada"));
 		System.out.println("- " + SIMULA + ": " + Messages.getMessage("cmd.simula"));
 		System.out.println("- " + TIROS + ": " + Messages.getMessage("cmd.tiros"));
-		System.out.println("- " + PDF + ": " + Messages.getMessage("cmd.pdf"));
 		System.out.println("- " + SCOREBOARD + ": " + Messages.getMessage("cmd.scoreboard"));
+		System.out.println("- " + PDF + ": " + Messages.getMessage("cmd.pdf"));
 		System.out.println("- " + DESISTIR + ": " + Messages.getMessage("cmd.desisto"));
 		System.out.println(Messages.getMessage("menu.footer"));
 	}
@@ -163,13 +197,12 @@ public class Tasks {
 
 		try {
 			PdfExporter.export(game, PDF_FILE);
-			System.out.println(Messages.getMessage("pdf.success") + PDF_FILE);
+			System.out.println("PDF foi criado com sucesso: " + PDF_FILE);
 		} catch (java.io.IOException e) {
-			LOGGER.error("Erro ao criar o PDF das jogadas", e);
-			System.out.println(Messages.getMessage("pdf.error") + e.getMessage());
+			LOGGER.error("Erro ao criar o PDF das jogadas: ", e);
+			System.out.println("Não foi possível criar o PDF: " + e.getMessage());
 		}
 	}
-
 	/**
 	 * This operation allows the build up of a fleet, given user data
 	 *
@@ -177,10 +210,11 @@ public class Tasks {
 	 * @return The fleet that has been built
 	 */
 	public static Fleet buildFleet(Scanner in) {
+
 		assert in != null;
 
 		Fleet fleet = new Fleet();
-		int i = 0;
+		int i = 0; // i represents the total of successfully created ships
 		while (i < Fleet.FLEET_SIZE) {
 			IShip s = readShip(in);
 			if (s != null) {
@@ -204,6 +238,7 @@ public class Tasks {
 	 * @return The created ship based on the data that has been read
 	 */
 	public static Ship readShip(Scanner in) {
+
 		assert in != null;
 
 		String shipKind = in.next();
@@ -220,6 +255,7 @@ public class Tasks {
 	 * @return The position that has been read
 	 */
 	public static Position readPosition(Scanner in) {
+
 		assert in != null;
 
 		int row = in.nextInt();
@@ -229,7 +265,6 @@ public class Tasks {
 
 	/**
 	 * This operation allows reading a position in the map
-	 *
 	 * @param in The scanner to read from
 	 * @return The classic position that has been read
 	 */
@@ -269,4 +304,5 @@ public class Tasks {
 		scoreboard.saveScore(shots, hits, sinks);
 		System.out.println(Messages.getMessage("msg.score_saved"));
 	}
+
 }
