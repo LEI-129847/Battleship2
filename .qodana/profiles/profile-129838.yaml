@@ -1,0 +1,9 @@
+# 129838 José Romeiro
+profile:
+  base:
+    name: empty
+  inspections:
+    - inspection: ParametersPerMethod
+      enabled: true
+      options:
+        m_limit: 5
