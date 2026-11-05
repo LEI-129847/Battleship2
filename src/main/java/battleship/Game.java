@@ -49,7 +49,7 @@ public class Game implements IGame
 		System.out.println();
 	}
 
-	public void metodo_mau(int a, int b, int c, int d, int e, int f){
+	public void metodo_mau(int a, int b, int c, int d, int e, int f, int g, int h){
 
 	}
 
