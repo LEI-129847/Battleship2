@@ -49,6 +49,8 @@ public class Game implements IGame
 		System.out.println();
 	}
 
+	private void metodoMau(int a, int b, int c, int d, int e, int f, int g,int h, int j){}
+
 	private static void printShips(IFleet fleet, char[][] map) {
 		for (IShip ship : fleet.getShips()) {
 			for (IPosition ship_pos : ship.getPositions())
