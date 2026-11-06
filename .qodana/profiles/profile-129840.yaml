@@ -1,0 +1,8 @@
+profile:
+  base:
+    name: empty
+  inspections:
+    - inspection: OverlyLongMethod
+      enabled: true
+      options:
+        m_limit: 16
