@@ -23,6 +23,8 @@ public class Game implements IGame
 	 * @param showLegend  if true, displays an explanatory legend of the symbols used
 	 *                    to represent various elements such as ships, misses, hits, etc.
 	 */
+
+
 	public static void printBoard(IFleet fleet, List<IMove> moves, boolean show_shots, boolean showLegend) {
 
 		assert fleet != null;
