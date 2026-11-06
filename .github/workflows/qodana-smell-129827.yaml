@@ -22,6 +22,6 @@ jobs:
       - name: Análise Qodana
         uses: JetBrains/qodana-action@v2026.2.0
         with:
-          args: --config qodana.yaml
+          args: --config qodana-129827.yaml
         env:
           QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
