@@ -18,5 +18,5 @@ jobs:
           reporter: github-pr-check
           checkstyle_config: checkstyle-129838.xml
           level: error
+          fail_level: error
           filter_mode: added
-          fail_on_error: true
