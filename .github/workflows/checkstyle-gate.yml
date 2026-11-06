@@ -1,0 +1,19 @@
+name: Checkstyle Quality Gate
+
+on:
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  checkstyle:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Executar Checkstyle
+        uses: dbelyaev/action-checkstyle@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          reporter: github-pr-check
+          checkstyle_config: checkstyle-129838.xml
