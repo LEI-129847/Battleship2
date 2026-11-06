@@ -1,0 +1,15 @@
+#129827 - Miguel Antão
+name: "profile-129827"
+baseProfile: empty
+inspections:
+  - inspection: OverlyComplexClass
+    enabled: true
+    options:
+      m_limit: 47
+  
+  - inspection: OverlyCoupledClass
+    enabled: true
+    options:
+      m_limit: 5
+      m_includeJavaClasses: false
+      m_includeLibraryClasses: false
