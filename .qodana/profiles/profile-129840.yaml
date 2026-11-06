@@ -1,7 +1,6 @@
-profile:
-  base:
-    name: empty
-  inspections:
+name: "profile-129840"
+baseProfile: empty
+inspections:
     - inspection: OverlyLongMethod
       enabled: true
       options:
