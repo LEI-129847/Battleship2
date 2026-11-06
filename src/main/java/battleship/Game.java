@@ -23,6 +23,8 @@ public class Game implements IGame
 	 * @param showLegend  if true, displays an explanatory legend of the symbols used
 	 *                    to represent various elements such as ships, misses, hits, etc.
 	 */
+
+
 	public static void printBoard(IFleet fleet, List<IMove> moves, boolean show_shots, boolean showLegend) {
 
 		assert fleet != null;
@@ -48,6 +50,8 @@ public class Game implements IGame
 		}
 		System.out.println();
 	}
+
+	public void CalcularPontos() {}
 
 	private static void printShips(IFleet fleet, char[][] map) {
 		for (IShip ship : fleet.getShips()) {
