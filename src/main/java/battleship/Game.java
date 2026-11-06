@@ -51,8 +51,6 @@ public class Game implements IGame
 		System.out.println();
 	}
 
-	public void CalcularPontos () {}
-
 	private static void printShips(IFleet fleet, char[][] map) {
 		for (IShip ship : fleet.getShips()) {
 			for (IPosition ship_pos : ship.getPositions())
