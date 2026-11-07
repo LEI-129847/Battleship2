@@ -7,7 +7,7 @@
     <module name="ParameterName">
       <property name="format" value="^[a-z][a-zA-Z0-9]+$"/>
       <message key="name.invalidPattern"
-                     value="O nome do parametro ''{0}'' tem de seguir a convenção (^[a-z][a-zA-Z0-9]+$) "/>
+                     value="O nome do parametro ''{0}'' tem de seguir o formato: (^[a-z][a-zA-Z0-9]+$) "/>
     </module>
   </module>
 </module>
