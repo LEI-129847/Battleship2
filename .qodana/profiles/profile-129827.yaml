@@ -20,7 +20,7 @@ inspections:
     options: 
       m_limit: 10
 
-  -inspection: ClassCoupling
+  - inspection: ClassCoupling
     enabled: true
     options:
       m_includeJavaClasses: false
