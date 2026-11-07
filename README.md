@@ -1,5 +1,7 @@
 # ⚓ Battleship 2.0
 
+*Nota: A funcionalidade do passo 10 da tarefa 2 parte A, não está disponível
+
 *A conta Romeiro151 é o LEI-129838 e a conta diogotomasteixeira-design é o LEI-129840*
 ![Build Status](https://img.shields.io/badge/build-passing-brightgreen)
 ![Java Version](https://img.shields.io/badge/Java-17%2B-blue)
