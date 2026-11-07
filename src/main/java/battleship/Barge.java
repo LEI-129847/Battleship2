@@ -10,6 +10,7 @@ package battleship;
  */
 public class Barge extends Ship {
 
+	public static final int maxShips = 5;
 	/**
 	 * Instantiates a new Barge.
 	 *
