@@ -2,7 +2,18 @@
 name: "profile-129840"
 baseProfile: empty
 inspections:
-  - inspection: Overly Long Method
+  - inspection: NonCommentSourceStatements
     enabled: true
+    severity: WARNING
     options:
-      m_limit: 3
+      m_limit: 30
+  - inspection: CyclomaticComplexity
+    enabled: true
+    severity: WARNING
+    options:
+      m_limit: 10 
+  - inspection: NestingDepth
+    enabled: true
+    severity: WARNING
+    options:
+      m_limit: 5
