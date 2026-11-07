@@ -1,0 +1,18 @@
+# 129847 Rodrigo Leal
+name: Checkstyle gate 129847
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  checkstyle:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run Checkstyle
+        uses: nikitasavchenko/checkstyle-action@v1.0.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          checkstyle_config: Checkstyle/checkstyle-129847.xml
