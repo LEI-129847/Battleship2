@@ -22,6 +22,7 @@ public class GodClass {
         if (valor == 17) valor ++;
         if (valor == 18) valor ++;
         if (valor == 19) valor ++;
+        if (valor == 20) valor ++;
         return valor;
     }
 }
