@@ -2,26 +2,29 @@
 name: Qodana smell gate 129827
 
 on:
-  workflow_dispatch:
   pull_request:
   push:
-    branches:
-      - main
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  checks: write
+  pull-requests: write
 
 jobs:
   qodana:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      checks: write
-      pull-requests: write
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
         with:
+          ref: ${{ github.event.pull_request.head.sha }}
           fetch-depth: 0
-      - name: Análise Qodana
-        uses: JetBrains/qodana-action@v2026.2.0
+
+      - name: Run Qodana Quality Gate
+        uses: JetBrains/qodana-action@v2026.2
         with:
           args: --config qodana-129827.yaml
-        env:
-          QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
+          use-annotations: true
+          post-pr-comment: true
