@@ -15,6 +15,7 @@ public class GodClass {
         if (valor == 9) resultado++;
         if (valor == 10) resultado++;
         if (valor == 11) resultado++;
+        if (valor == 12) resultado++;
 
         return resultado;
     }
