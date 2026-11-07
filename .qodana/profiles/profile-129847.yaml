@@ -6,7 +6,3 @@ inspections:
     enabled: true
     options:
       m_limit: 10
-  - inspection: ClassWithTooManyMethods
-    enabled: true
-    options:
-      m_limit: 20
