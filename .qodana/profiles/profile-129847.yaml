@@ -1,14 +1,12 @@
 # 129847 - Rodrigo Leal
-profile:
-  base: empty
+name: profile-129847
+baseProfile: empty
 inspections:
   - inspection: ClassWithTooManyFields
     enabled: true
     options:
-      - name: m_limit
-        value: 10
+      m_limit: 10
   - inspection: ClassWithTooManyMethods
     enabled: true
     options:
-      - name: m_limit
-        value: 20
+      m_limit: 20
