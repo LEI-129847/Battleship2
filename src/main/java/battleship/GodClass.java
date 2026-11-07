@@ -2,21 +2,27 @@ package battleship;
 
 public class GodClass {
     public int addComplexity(int valor){
-        int resultado = 0;
-        if (valor == 0) resultado ++;
-        if (valor == 1) resultado ++;
-        if (valor == 2) resultado ++;
-        if (valor == 3) resultado ++;
-        if (valor == 4) resultado ++;
-        if (valor == 5) resultado ++;
-        if (valor == 6) resultado ++;
-        if (valor == 7) resultado ++;
-        if (valor == 8) resultado ++;
-        if (valor == 9) resultado ++;
-        if (valor == 10) resultado ++;
-        if (valor == 11) resultado ++;
-        if (valor == 12) resultado ++;
-
-        return resultado;
+        if (valor == 0) valor ++;
+        if (valor == 1) valor ++;
+        if (valor == 2) valor ++;
+        if (valor == 3) valor ++;
+        if (valor == 4) valor ++;
+        if (valor == 5) valor ++;
+        if (valor == 6) valor ++;
+        if (valor == 7) valor ++;
+        if (valor == 8) valor ++;
+        if (valor == 9) valor ++;
+        if (valor == 10) valor ++;
+        if (valor == 11) valor ++;
+        if (valor == 12) valor ++;
+        if (valor == 13) valor ++;
+        if (valor == 14) valor ++;
+        if (valor == 15) valor ++;
+        if (valor == 16) valor ++;
+        if (valor == 17) valor ++;
+        if (valor == 18) valor ++;
+        if (valor == 19) valor ++;
+        if (valor == 20) valor ++;
+        return valor;
     }
 }
