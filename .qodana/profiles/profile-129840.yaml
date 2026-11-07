@@ -6,14 +6,14 @@ inspections:
     enabled: true
     severity: WARNING
     options:
-      m_limit: 3000
+      m_limit: 30
   - inspection: CyclomaticComplexity
     enabled: true
     severity: WARNING
     options:
-      m_limit: 1000
+      m_limit: 10
   - inspection: NestingDepth
     enabled: true
     severity: WARNING
     options:
-      m_limit: 5000
+      m_limit: 5
