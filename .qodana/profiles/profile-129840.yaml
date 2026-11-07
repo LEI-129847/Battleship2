@@ -2,7 +2,7 @@
 name: "profile-129840"
 baseProfile: empty
 inspections:
-  - inspection: OverlyLongMethod
+  - inspection: Overly Long  sMethod
     enabled: true
     options:
       m_limit: 3
