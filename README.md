@@ -10,6 +10,23 @@ Nota: A funcionalidade do passo 10 da tarefa 2 parte A, não está disponível
 > A modern take on the classic naval warfare game, designed for the XVII century setting with updated software engineering patterns.
 
 ---
+## Informações Sobre o Workflow Java CI with maven: maven.yml
+
+O projeto utiliza GitHub Actions para automatizar a compilação
+e execução dos testes unitários através do Maven.
+
+O workflow é executado automaticamente:
+- Sempre que é realizado um push para qualquer branch.
+- Sempre que é criado ou atualizado um Pull Request para a branch main.
+
+O processo inclui:
+1. Checkout do código-fonte.
+2. Configuração do ambiente Java 21.
+3. Compilação do projeto.
+4. Execução dos testes unitários JUnit.
+5. Verificação do resultado da compilação e dos testes.
+
+---
 ## 📷 Youtube
 Link do vídeo da demonstração no Youtube: https://www.youtube.com/watch?v=DzOwE2tITCY
 ---
