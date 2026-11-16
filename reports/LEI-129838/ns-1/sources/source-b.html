@@ -48,34 +48,34 @@ Current scope:     <a href="../../index.html">all classes</a>
   <td class="name">IMove</td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    100%
   </span>
   <span class="absValue">
-    (0/1)
+    (1/1)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    100%
   </span>
   <span class="absValue">
-    (0/1)
+    (1/1)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    100%
   </span>
   <span class="absValue">
-    (0/2)
+    (2/2)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    100%
   </span>
   <span class="absValue">
-    (0/7)
+    (7/7)
   </span>
 </td>
 </tr>
@@ -102,14 +102,14 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp; */
 &nbsp;public interface IMove {
 &nbsp;	static Move readMove(int moveNumber, Scanner sc) {
-<b class="nc">&nbsp;		int numShots = sc.nextInt();</b>
-<b class="nc">&nbsp;		List&lt;IPosition&gt; moveShots = new ArrayList&lt;&gt;();</b>
-<b class="nc">&nbsp;		for (int i = 0; i &lt; numShots; i++) {</b>
-<b class="nc">&nbsp;			int row = sc.nextInt();</b>
-<b class="nc">&nbsp;			int col = sc.nextInt();</b>
-<b class="nc">&nbsp;			moveShots.add(new Position(row, col));</b>
+<b class="fc">&nbsp;		int numShots = sc.nextInt();</b>
+<b class="fc">&nbsp;		List&lt;IPosition&gt; moveShots = new ArrayList&lt;&gt;();</b>
+<b class="fc">&nbsp;		for (int i = 0; i &lt; numShots; i++) {</b>
+<b class="fc">&nbsp;			int row = sc.nextInt();</b>
+<b class="fc">&nbsp;			int col = sc.nextInt();</b>
+<b class="fc">&nbsp;			moveShots.add(new Position(row, col));</b>
 &nbsp;		}
-<b class="nc">&nbsp;		return new Move(moveNumber, moveShots, new ArrayList&lt;&gt;());</b>
+<b class="fc">&nbsp;		return new Move(moveNumber, moveShots, new ArrayList&lt;&gt;());</b>
 &nbsp;	}
 &nbsp;
 &nbsp;	@Override
@@ -146,7 +146,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2026-11-13 21:28</div>
+    <div style="float:right;">generated on 2026-11-16 19:26</div>
 </div>
 </body>
 </html>
