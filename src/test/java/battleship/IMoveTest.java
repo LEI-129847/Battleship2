@@ -10,7 +10,7 @@ import java.util.Scanner;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@DisplayName("Testes unitários para a interface IMove")
+@DisplayName("Testes unitários JUNIT5 para a interface IMove")
 class IMoveTest {
 
     @Test
