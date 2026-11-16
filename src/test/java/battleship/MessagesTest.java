@@ -13,7 +13,7 @@ import java.util.ResourceBundle;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@DisplayName("Testes unitários para a classe Messages")
+@DisplayName("Testes unitários JUNIT5 para a classe Messages")
 public class MessagesTest {
 
     private Locale defaultLocale;
