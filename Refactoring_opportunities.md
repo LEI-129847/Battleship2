@@ -1,0 +1,7 @@
+| local | nome do cheiro no código | nome da refabricação | número de alun@ |
+| :--- | :--- | :--- | :--- |
+| AiShotStrategy::getHitButNotSunk | Speculative Generality | Safe Delete | 129838 |
+| IGame::randomEnemyFire | Parameters & Signatures | Change Signature | 129838 |
+| Scoreboard::createTable | Data Flow & Redundancy | Introduce Constant | 129838 |
+| Tasks::menu | Long Method | Extract Method | 129838 |
+| Game::randomEnemyFire | Expressions & Conditionals | Introduce Variable | 129838 |
