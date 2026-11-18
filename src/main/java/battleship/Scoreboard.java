@@ -10,6 +10,13 @@ import java.sql.ResultSet;
 
 public class Scoreboard {
 
+    public static final String SQL = "CREATE TABLE IF NOT EXISTS scores ("
+            + "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + "date TEXT, "
+            + "shots INTEGER, "
+            + "hits INTEGER, "
+            + "sinks INTEGER"
+            + ")";
     private static final String DATABASE = "jdbc:sqlite:scoreboard.db";
 
     private Connection connection;
@@ -24,15 +31,8 @@ public class Scoreboard {
     }
 
     private void createTable() throws SQLException {
-        String sql = "CREATE TABLE IF NOT EXISTS scores ("
-                + "id INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + "date TEXT, "
-                + "shots INTEGER, "
-                + "hits INTEGER, "
-                + "sinks INTEGER"
-                + ")";
         try (Statement statement = connection.createStatement()) {
-            statement.execute(sql);
+            statement.execute(SQL);
         }
     }
 
