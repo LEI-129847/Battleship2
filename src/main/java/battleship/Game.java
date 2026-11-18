@@ -260,7 +260,8 @@ public class Game implements IGame
 		// Gerar coordenadas únicas até atingir o número definido por NUMBER_SHOTS
 
 		IPosition newShot = null;
-		if (candidateShots.size() >= Game.NUMBER_SHOTS)
+		boolean hasEnoughCandidateShots = candidateShots.size() >= Game.NUMBER_SHOTS;
+		if (hasEnoughCandidateShots)
 			while (shots.size() < Game.NUMBER_SHOTS) {
 				newShot = candidateShots.get(random.nextInt(candidateShots.size()));
 				if (!shots.contains(newShot))
