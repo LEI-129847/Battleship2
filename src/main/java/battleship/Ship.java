@@ -94,10 +94,7 @@ public abstract class Ship implements IShip
 	 */
 	private Integer size;
 
-	/**
-	 * The Positions occupied by the ship.
-	 */
-	protected List<IPosition> positions;
+	private List<IPosition> positions;
 
 	/**
 	 * Create ships
@@ -118,7 +115,7 @@ public abstract class Ship implements IShip
 		this.pos = pos;
 		this.size = size;
 
-		positions = new ArrayList<>();
+		setPositions(new ArrayList<>());
     }
 
 	/**
@@ -138,6 +135,8 @@ public abstract class Ship implements IShip
     }
 
 	/**
+	 * The Positions occupied by the ship.
+	 */ /**
 	 * Gets positions.
 	 *
 	 * @return the positions
@@ -160,9 +159,11 @@ public abstract class Ship implements IShip
 		for (IPosition position : getPositions())
 		{
 			List<IPosition> adjacents = position.adjacentPositions();
-			for (IPosition adj : adjacents)
-				if (!getPositions().contains(adj) && !adjacentPositions.contains(adj))
+			for (IPosition adj : adjacents) {
+				boolean contains = getPositions().contains(adj);
+				if (!contains && !adjacentPositions.contains(adj))
 					adjacentPositions.add(adj);
+			}
 		}
 		return adjacentPositions;
 	}
@@ -381,7 +382,10 @@ public abstract class Ship implements IShip
 	{
 		assert this != null;
 
-		return (getLeftMostPos() >= 0 && getRightMostPos() <= Game.BOARD_SIZE - 1 && getTopMostPos() >= 0
+		int leftMostPos = getLeftMostPos();
+		int rightMostPos = getRightMostPos();
+		int topMostPos = getTopMostPos();
+		return (leftMostPos >= 0 && rightMostPos <= Game.BOARD_SIZE - 1 && topMostPos >= 0
 				&& getBottomMostPos() <= Game.BOARD_SIZE - 1);
 	}
 	/**
@@ -432,4 +436,7 @@ public abstract class Ship implements IShip
 	return "[" + category + " " + bearing + " " + pos + "]";
     }
 
+	public void setPositions(List<IPosition> positions) {
+		this.positions = positions;
+	}
 }
