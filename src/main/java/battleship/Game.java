@@ -236,10 +236,9 @@ public class Game implements IGame
 	 * and do not duplicate existing shots in the game or previous enemy moves. After generating
 	 * the shots, it applies the firing logic and serializes the result for further processing.
 	 *
-	 * @return A JSON string representing the list of randomly generated enemy shots.
 	 * @throws RuntimeException if there is an error during the JSON serialization of the shots.
 	 */
-	public String randomEnemyFire() {
+	public void randomEnemyFire() {
 
 		// Criar uma instância de Random com uma seed baseada no timestamp atual
 		Random random = new Random(System.currentTimeMillis());
@@ -261,7 +260,8 @@ public class Game implements IGame
 		// Gerar coordenadas únicas até atingir o número definido por NUMBER_SHOTS
 
 		IPosition newShot = null;
-		if (candidateShots.size() >= Game.NUMBER_SHOTS)
+		boolean hasEnoughCandidateShots = candidateShots.size() >= Game.NUMBER_SHOTS;
+		if (hasEnoughCandidateShots)
 			while (shots.size() < Game.NUMBER_SHOTS) {
 				newShot = candidateShots.get(random.nextInt(candidateShots.size()));
 				if (!shots.contains(newShot))
@@ -284,7 +284,7 @@ public class Game implements IGame
 
 		this.fireShots(shots);
 
-		return Game.jsonShots(shots);
+		Game.jsonShots(shots);
 	}
 
 
@@ -301,7 +301,7 @@ public class Game implements IGame
 	 *                                  incorrectly formatted, or do not match the
 	 *                                  required number of shots (NUMBER_SHOTS).
 	 */
-	public String readEnemyFire(Scanner in) {
+	public void readEnemyFire(Scanner in) {
 
 		assert in != null;
 
@@ -336,7 +336,7 @@ public class Game implements IGame
 
 		this.fireShots(shots);
 
-		return Game.jsonShots(shots);
+		Game.jsonShots(shots);
 	}
 
 	/**
