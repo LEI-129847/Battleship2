@@ -1,0 +1,56 @@
+package battleship;
+
+public class DemoSmell {
+
+    public int brainMethod(int[][] grid, int a, int b, int c) {
+        int total = 0;
+        int count = 0;
+        int max = Integer.MIN_VALUE;
+        int min = Integer.MAX_VALUE;
+        for (int i = 0; i < grid.length; i++) {                 // aninhamento 1
+            if (grid[i] != null) {                              // 2
+                for (int j = 0; j < grid[i].length; j++) {      // 3
+                    if (grid[i][j] > a) {                       // 4
+                        if (grid[i][j] < b) {                   // 5
+                            while (count < c) {                 // 6
+                                if (grid[i][j] % 2 == 0 && count > 0 || total < 0) { // 7
+                                    total += grid[i][j];
+                                } else {
+                                    total -= 1;
+                                }
+                                count++;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        if (total > 100) {
+            total = 100;
+        }
+        if (total < -100) {
+            total = -100;
+        }
+        if (count == 0) {
+            count = 1;
+        }
+        if (a > b) {
+            int t = a;
+            a = b;
+            b = t;
+        }
+        int score = total / count;
+        score += a;
+        score -= b;
+        score *= 2;
+        score += c;
+        score -= 1;
+        score *= 3;
+        score += 4;
+        score -= 5;
+        score *= 6;
+        score += 7;
+        score -= 8;
+        return score;
+    }
+}
