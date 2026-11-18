@@ -480,4 +480,5 @@ public class Game implements IGame
 		System.out.println("+--------------------------------------------------------------+");
 		System.out.println("Tempo de jogo: " + minutes + " min " + seconds + " s");
 	}
+
 }
