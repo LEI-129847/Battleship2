@@ -136,21 +136,25 @@ public class PdfExporter {
                     sunk.merge(category, 1, Integer::sum);
             }
         }
+        Result result = new Result(water, repeated, outside, hit, sunk);
 
         List<String> parts = new ArrayList<>();
-        sunk.forEach((category, n) -> parts.add(n + " " + category + (n > 1 ? "s" : "") + " ao fundo"));
-        hit.forEach((category, n) -> {
-            if (!sunk.containsKey(category))
+        result.sunk().forEach((category, n) -> parts.add(n + " " + category + (n > 1 ? "s" : "") + " ao fundo"));
+        result.hit().forEach((category, n) -> {
+            if (!result.sunk().containsKey(category))
                 parts.add(n + " tiro" + (n > 1 ? "s" : "") + " num(a) " + category);
         });
-        if (water > 0)
-            parts.add(water + " tiro" + (water > 1 ? "s" : "") + " na água");
-        if (repeated > 0)
-            parts.add(repeated + " tiro" + (repeated > 1 ? "s" : "") + " repetido" + (repeated > 1 ? "s" : ""));
-        if (outside > 0)
-            parts.add(outside + " tiro" + (outside > 1 ? "s" : "") + " exterior" + (outside > 1 ? "es" : ""));
+        if (result.water() > 0)
+            parts.add(result.water() + " tiro" + (result.water() > 1 ? "s" : "") + " na água");
+        if (result.repeated() > 0)
+            parts.add(result.repeated() + " tiro" + (result.repeated() > 1 ? "s" : "") + " repetido" + (result.repeated() > 1 ? "s" : ""));
+        if (result.outside() > 0)
+            parts.add(result.outside() + " tiro" + (result.outside() > 1 ? "s" : "") + " exterior" + (result.outside() > 1 ? "es" : ""));
 
         return parts.isEmpty() ? "-" : String.join(", ", parts);
+    }
+
+    private record Result(int water, int repeated, int outside, Map<String, Integer> hit, Map<String, Integer> sunk) {
     }
 
     private static void addHeaderCell(PdfPTable table, String text) {
