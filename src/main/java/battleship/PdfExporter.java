@@ -28,6 +28,7 @@ import java.util.stream.Collectors;
  */
 public class PdfExporter {
 
+    public static final Color BACKGROUND_COLOR = new Color(0x1F, 0x4E, 0x79);
     private static final Font TITLE_FONT = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 20);
     private static final Font HEADER_FONT = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 11, Color.WHITE);
     private static final Font CELL_FONT = FontFactory.getFont(FontFactory.HELVETICA, 10);
@@ -136,30 +137,26 @@ public class PdfExporter {
                     sunk.merge(category, 1, Integer::sum);
             }
         }
-        Result result = new Result(water, repeated, outside, hit, sunk);
 
         List<String> parts = new ArrayList<>();
-        result.sunk().forEach((category, n) -> parts.add(n + " " + category + (n > 1 ? "s" : "") + " ao fundo"));
-        result.hit().forEach((category, n) -> {
-            if (!result.sunk().containsKey(category))
+        sunk.forEach((category, n) -> parts.add(n + " " + category + (n > 1 ? "s" : "") + " ao fundo"));
+        hit.forEach((category, n) -> {
+            if (!sunk.containsKey(category))
                 parts.add(n + " tiro" + (n > 1 ? "s" : "") + " num(a) " + category);
         });
-        if (result.water() > 0)
-            parts.add(result.water() + " tiro" + (result.water() > 1 ? "s" : "") + " na água");
-        if (result.repeated() > 0)
-            parts.add(result.repeated() + " tiro" + (result.repeated() > 1 ? "s" : "") + " repetido" + (result.repeated() > 1 ? "s" : ""));
-        if (result.outside() > 0)
-            parts.add(result.outside() + " tiro" + (result.outside() > 1 ? "s" : "") + " exterior" + (result.outside() > 1 ? "es" : ""));
+        if (water > 0)
+            parts.add(water + " tiro" + (water > 1 ? "s" : "") + " na água");
+        if (repeated > 0)
+            parts.add(repeated + " tiro" + (repeated > 1 ? "s" : "") + " repetido" + (repeated > 1 ? "s" : ""));
+        if (outside > 0)
+            parts.add(outside + " tiro" + (outside > 1 ? "s" : "") + " exterior" + (outside > 1 ? "es" : ""));
 
         return parts.isEmpty() ? "-" : String.join(", ", parts);
     }
 
-    private record Result(int water, int repeated, int outside, Map<String, Integer> hit, Map<String, Integer> sunk) {
-    }
-
     private static void addHeaderCell(PdfPTable table, String text) {
         PdfPCell Cell = new PdfPCell(new Phrase(text, HEADER_FONT));
-        Cell.setBackgroundColor(new Color(0x1F, 0x4E, 0x79));
+        Cell.setBackgroundColor(BACKGROUND_COLOR);
         Cell.setHorizontalAlignment(Element.ALIGN_CENTER);
         Cell.setPadding(6);
         table.addCell(Cell);
