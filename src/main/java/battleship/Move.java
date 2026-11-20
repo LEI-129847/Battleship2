@@ -182,6 +182,16 @@ public class Move implements IMove {
 		response.put("missedShots", missedShots);
 
 		// Serializar o JSON utilizando Jackson
+		String jsonString = serializeResponseToJson(response);
+
+		System.out.println(jsonString);
+		System.out.println();
+
+		// Retornar o JSON
+		return jsonString;
+	}
+
+	private static String serializeResponseToJson(Map<String, Object> response) {
 		String jsonString;
 
 		// Serializar os tiros gerados em JSON usando a biblioteca Jackson
@@ -193,11 +203,6 @@ public class Move implements IMove {
 		} catch (JsonProcessingException e) {
 			throw new RuntimeException("Erro ao serializar o JSON dos resultados da jogada", e);
 		}
-
-		System.out.println(jsonString);
-		System.out.println();
-
-		// Retornar o JSON
 		return jsonString;
 	}
 }
