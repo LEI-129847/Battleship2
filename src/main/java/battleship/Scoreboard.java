@@ -64,13 +64,7 @@ public class Scoreboard {
             int position = 1;
 
             while (results.next()) {
-                System.out.println(
-                        position + ". " +
-                                "Data: " + results.getString("date") +
-                                " | Tiros: " + results.getInt("shots") +
-                                " | Acertos: " + results.getInt("hits") +
-                                " | Navios afundados: " + results.getInt("sinks")
-                );
+                extracted(position, results);
 
                 position++;
             }
@@ -85,6 +79,16 @@ public class Scoreboard {
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao consultar o Scoreboard.", e);
         }
+    }
+
+    private static void extracted(int position, ResultSet results) throws SQLException {
+        System.out.println(
+                position + ". " +
+                        "Data: " + results.getString("date") +
+                        " | Tiros: " + results.getInt("shots") +
+                        " | Acertos: " + results.getInt("hits") +
+                        " | Navios afundados: " + results.getInt("sinks")
+        );
     }
 
 }
