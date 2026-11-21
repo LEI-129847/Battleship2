@@ -287,17 +287,14 @@ public class Tasks {
 		String input = (part2 != null) ? part1 + part2 : part1;
 		input = input.toUpperCase();
 
-		if (input.matches("[A-Z]\\d+")) {
-			char column = input.charAt(0);
-			int row = Integer.parseInt(input.substring(1));
-			return new Position(column, row);
-		} else if (part2 != null && part1.matches("[A-Z]") && part2.matches("\\d+")) {
-			char column = part1.charAt(0);
-			int row = Integer.parseInt(part2);
-			return new Position(column, row);
-		} else {
+		if (!input.matches("[A-Z]\\d+")) {
 			throw new IllegalArgumentException(Messages.getMessage("err.invalid_format"));
 		}
+
+		char column = input.charAt(0);
+		int row = Integer.parseInt(input.substring(1));
+
+		return new Position(column, row);
 	}
 
 	private static void saveGameScore(IGame game) {
