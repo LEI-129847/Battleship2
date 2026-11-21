@@ -28,6 +28,7 @@ import java.util.stream.Collectors;
  */
 public class PdfExporter {
 
+    public static final Color BACKGROUND_COLOR = new Color(0x1F, 0x4E, 0x79);
     private static final Font TITLE_FONT = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 20);
     private static final Font HEADER_FONT = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 11, Color.WHITE);
     private static final Font CELL_FONT = FontFactory.getFont(FontFactory.HELVETICA, 10);
@@ -155,7 +156,7 @@ public class PdfExporter {
 
     private static void addHeaderCell(PdfPTable table, String text) {
         PdfPCell Cell = new PdfPCell(new Phrase(text, HEADER_FONT));
-        Cell.setBackgroundColor(new Color(0x1F, 0x4E, 0x79));
+        Cell.setBackgroundColor(BACKGROUND_COLOR);
         Cell.setHorizontalAlignment(Element.ALIGN_CENTER);
         Cell.setPadding(6);
         table.addCell(Cell);
