@@ -37,7 +37,7 @@ public class AiShotStrategy {
 		}
 
 		// Collect hit-but-not-sunk positions (TARGET phase candidates)
-		List<IPosition> hitTargets = getHitButNotSunkPositions(game, alreadyShot);
+		List<IPosition> hitTargets = getHitButNotSunkPositions(game);
 
 		List<IPosition> chosen = new ArrayList<>();
 
@@ -92,7 +92,7 @@ public class AiShotStrategy {
 	 * we use a simple heuristic: a position is a "live target" if it was hit and at
 	 * least one of its orthogonal neighbours has NOT been shot yet.
 	 */
-	private List<IPosition> getHitButNotSunkPositions(IGame game, Set<IPosition> alreadyShot) {
+	private List<IPosition> getHitButNotSunkPositions(IGame game) {
 
 		// Gather all positions the AI hit
 		List<IPosition> hits = new ArrayList<>();

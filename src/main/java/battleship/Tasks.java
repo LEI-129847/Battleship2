@@ -48,9 +48,7 @@ public class Tasks {
 	public static void menu() {
 
 		Scanner in = new Scanner(System.in);
-		System.out.print("Escolha o idioma / Choose language (pt/en)");
-		String lang = in.next();
-		Messages.setLanguage(lang);
+		selectLanguage(in);
 
 		IFleet myFleet = null;
 		IGame game = null;
@@ -152,6 +150,12 @@ public class Tasks {
 		if(game != null){
 			game.over();
 		}
+	}
+
+	private static void selectLanguage(Scanner in) {
+		System.out.print("Escolha o idioma / Choose language (pt/en)");
+		String lang = in.next();
+		Messages.setLanguage(lang);
 	}
 
 	/**

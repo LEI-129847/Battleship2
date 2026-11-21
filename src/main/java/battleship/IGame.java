@@ -13,18 +13,15 @@ public interface IGame
 {
 	/**
 	 * Simulates a random enemy firing action on the game board.
-	 *
-	 * @return a {@code String} indicating the result of the firing action, such as details about a hit, a miss, or other outcomes
 	 */
-	String randomEnemyFire();
+	void randomEnemyFire();
 
 	/**
 	 * Reads the result of an enemy firing action from input and interprets it.
 	 *
 	 * @param in the {@code Scanner} to read the input from, which provides the details of the enemy fire
-	 * @return a {@code String} describing the outcome of the enemy fire, such as a hit, a miss, or other results
 	 */
-	String readEnemyFire(Scanner in);
+	void readEnemyFire(Scanner in);
 
 	/**
 	 * Fires a set of shots in a given move.
