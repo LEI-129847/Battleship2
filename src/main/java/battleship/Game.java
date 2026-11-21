@@ -311,6 +311,19 @@ public class Game implements IGame
 		List<IPosition> shots = new ArrayList<>();
 
 		Scanner inputScanner = new Scanner(input);
+
+		extracted(shots, inputScanner);
+
+		if (shots.size() != NUMBER_SHOTS) {
+			throw new IllegalArgumentException("Você deve inserir exatamente " + NUMBER_SHOTS + " posições!");
+		}
+
+		this.fireShots(shots);
+
+		Game.jsonShots(shots);
+	}
+
+	private static void extracted(List<IPosition> shots, Scanner inputScanner) {
 		while (shots.size() < NUMBER_SHOTS && inputScanner.hasNext()) {
 			// Lê a próxima parte e constrói uma posição
 			String token = inputScanner.next();
@@ -329,14 +342,6 @@ public class Game implements IGame
 				shots.add(Tasks.readClassicPosition(singleScanner));
 			}
 		}
-
-		if (shots.size() != NUMBER_SHOTS) {
-			throw new IllegalArgumentException("Você deve inserir exatamente " + NUMBER_SHOTS + " posições!");
-		}
-
-		this.fireShots(shots);
-
-		Game.jsonShots(shots);
 	}
 
 	/**
