@@ -10,3 +10,8 @@
 | Ship::getTopMostPos, getBottomMostPos, getLeftMostPos, getRightMostPos | Message Chains | Introduce Variable | 129840 |
 | Position::adjacentPositions | Duplicated/magic data | Introduce Constant | 129840 |
 | Ship::getAdjacentPositions | Long Expression | Introduce Variable | 129840 |
+| Fleet::addShip | Complex Conditional | Introduce Variable | 129827 |
+| Game::readEnemyFire | Long Method | Extract Method | 129827 |
+| Game::jsonShots | Data Flow / Readability | Extract Method | 129827 |
+| Tasks::readClassicPosition | Unreachable Code / Complex Conditional | Simplify Conditional / Remove Unreachable Code | 129827 |
+| Game | Large Class | Extract Class | 129827 |
