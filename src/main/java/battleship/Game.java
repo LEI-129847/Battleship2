@@ -125,6 +125,16 @@ public class Game implements IGame
 		objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
 
 		// 1. Create a simplified list containing only the desired data
+		String jsonString = getJsonString(shots, objectMapper);
+
+		System.out.println(jsonString);
+		System.out.println();
+
+		// Retornar o JSON
+		return jsonString;
+	}
+
+	private static String getJsonString(List<IPosition> shots, ObjectMapper objectMapper) {
 		List<Map<String, Object>> simplifiedShots = new ArrayList<>();
 		for (IPosition shot : shots) {
 			Map<String, Object> simplePos = new LinkedHashMap<>();
@@ -141,11 +151,6 @@ public class Game implements IGame
 		} catch (JsonProcessingException e) {
 			throw new RuntimeException("Erro ao serializar o JSON", e);
 		}
-
-		System.out.println(jsonString);
-		System.out.println();
-
-		// Retornar o JSON
 		return jsonString;
 	}
 
